@@ -6,6 +6,7 @@ classdef Robobee_CKF < handle
         CCF
         EKF
         X
+        P
     end
 
     methods
@@ -13,6 +14,7 @@ classdef Robobee_CKF < handle
             obj.CCF = ccf;
             obj.EKF = ekf;
             obj.X = [0 0 0 0];
+            obj.P = [0 0 0 0];
         end
 
         function X = update(obj,acc, gyro, mag, tof, U)
@@ -22,6 +24,7 @@ classdef Robobee_CKF < handle
             X = obj.EKF.update(Z_, U);
             obj.CCF.X = X(1:3);
             obj.X = X;
+            obj.P = obj.EKF.getConfidence();
         end
     end
 end

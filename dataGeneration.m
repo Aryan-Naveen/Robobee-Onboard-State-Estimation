@@ -4,12 +4,12 @@ addpath('simData');
 
 config = load('simData/config.mat');
 
-folder = 'simData/flightData/';
-outputfolder = 'simData/flightSensorData/';
+folder = 'simData/data/';
+outputfolder = 'simData/data_/';
 DirList = dir(fullfile(folder, '*.mat'));
 
-
-for i = 4:size(DirList, 1)
+%size(DirList, 1)
+for i = 1:1
     disp(DirList(i));
     data = load(fullfile(folder, DirList(i).name));
     simData = runSimulation(data, config);
@@ -61,7 +61,9 @@ function simData = runSimulation(data, config)
     t_duration = vicon.getEnd() - vicon.getStart();
     
     for i = vicon.getStart() : vicon.getStart() + t_duration
-        move(plat, vicon.getMotionData(i));
+        motion = vicon.getMotionData(i);
+
+        move(plat, motion);
     
         isRunning = advance(scenario);
         

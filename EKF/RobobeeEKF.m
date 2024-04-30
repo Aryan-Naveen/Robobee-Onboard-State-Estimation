@@ -25,9 +25,9 @@ classdef RobobeeEKF < handle
               obj.x = [0 0 0 0 0 0 0 0 0 0]';  
 
                 % state covariance
-              obj.P = 10*eye(10);
+              obj.P = pi/2*eye(10);
 
-              obj.dt = config.sampling_time;
+              obj.dt = 1e-3;
               obj.config = config;
               obj.config.bw = 2e-4;
               obj.config.rw = 9e-3;
@@ -45,6 +45,10 @@ classdef RobobeeEKF < handle
             obj.P = Pp - K*obj.H*Pp;
             x = [obj.x(1); obj.x(2); obj.x(3); obj.x(7)];
             
+        end
+
+        function P = getConfidence(obj)
+            P = [obj.P(1, 1) obj.P(2, 2) obj.P(3, 3) obj.P(7, 7)];
         end
     end
 end

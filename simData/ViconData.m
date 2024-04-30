@@ -30,6 +30,15 @@ classdef ViconData
          obj.thrust = yout(:, 57);
          obj.torques = [yout(:,55), yout(:,56), yout(:,64)];
       end
+
+      function acc = getAcceleration(obj, t)
+          acc = obj.acc(t, :);
+      end
+
+     function acc = getVelocity(obj, t)
+          acc = obj.vel(t, :);
+      end
+
       function motion = getMotionData(obj, t)
          motion = [obj.pos(t, :) obj.vel(t, :) obj.acc(t, :) obj.quat(t, :) obj.omega(t, :)];
       end

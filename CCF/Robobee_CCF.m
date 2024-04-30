@@ -33,7 +33,7 @@ classdef Robobee_CCF < handle
 
         function update(obj, acc, gyro, mag, tof, u)
             X_g_dot_ = obj.gyro_estimate(gyro);
-            g = 9.81;
+            g = 9.81;            
             if norm(acc) > 2.5*g
                 norm(acc)
                 obj.X = X_g_dot_*obj.dt;
